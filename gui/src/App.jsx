@@ -6,16 +6,24 @@ function App() {
 
 
   const [segments, setSegments] = useState();
-  const preview = (e) => {
-    e.preventDefault();
-  };
-
+  
   const submit = async (e) => {
     e.preventDefault();
+    const videoContainer =  document.querySelector('.violence-seek-container')
+    if (videoContainer !== null)
+    {
+      videoContainer.remove()
+    }
+    let violenceSeekConatiner = document.createElement('span')
+    violenceSeekConatiner.className = 'violence-seek-container'
+    let card = document.querySelector('.card')
+    let lastChild = document.querySelector('.control-suite')
+    card.insertBefore(violenceSeekConatiner,lastChild)
 
+    
     const file = document.getElementById("file").value;
     const filePath = file.replace(/\\/g, "/");
-    console.log(filePath);
+    // console.log(filePath);
 
     var formdata = new FormData();
     formdata.append("path", filePath);
@@ -32,6 +40,8 @@ function App() {
       .then((result) => {
         console.log(result);
         setSegments(result);
+        console.log(result.length)
+        violenceSeekConatiner.style.gridTemplateColumns = `repeat(${result.length}, minmax(0, 1fr))`
       })
       .catch((error) => console.log("error", error));
 
@@ -47,6 +57,12 @@ function App() {
         .then((response) => response.json())
         .then((result) => {
           console.log(result);
+          let violenceSeek = document.createElement('span')
+          violenceSeek.className = 'violence-seek'
+          if(result.violence === false){
+            violenceSeek.style.background = 'white'
+          }
+          violenceSeekConatiner.appendChild(violenceSeek)
         })
         .catch((error) => console.log("error", error));
     }
@@ -101,13 +117,16 @@ function App() {
             ></button>
           </div> */}
         </span>
+        <span className="violence-seek-container">
+        </span>
         <span className="control-suite">
           <input placeholder="upload file path" id="file" type="text" />
-          <button onClick={submit}>Upload</button>
+          <button onClick={submit}>Run</button>
+          <button onClick={handleUpload}>Preview</button>
         </span>
       </div>
 
-      <button onClick={handleUpload}>Preview</button>
+     
     </>
   );
 }

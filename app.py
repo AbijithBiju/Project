@@ -25,6 +25,7 @@ def home():
         #     print(i)
         #     res.append(main_fight(f'segments/{i}'))
         return files 
+    
 @app.route("/segment",methods=['POST'])
 def segment():
     seg = request.form['segment']
