@@ -38,10 +38,30 @@ input:hover{
   width: 100%;
 }
 .violence-seek{
+  cursor: pointer;
+  position: relative;
   width:auto;
   height: 5px;
   background: #d90912;
   border-radius: 5px ;
+}
+
+.tooltip {
+  text-align: center;
+  width: auto;
+  position: absolute;
+  bottom: 100%;
+  transform: translateY(-50%);
+  display: none;
+  padding: 5px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  font-size: small;
+}
+
+.violence-seek:hover .tooltip {
+  display: block;
 }
 
 .video-container{

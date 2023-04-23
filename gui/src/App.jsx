@@ -10,6 +10,7 @@ function App() {
   const submit = async (e) => {
     e.preventDefault();
     const videoContainer =  document.querySelector('.violence-seek-container')
+    
     if (videoContainer !== null)
     {
       videoContainer.remove()
@@ -63,6 +64,18 @@ function App() {
             violenceSeek.style.background = 'white'
           }
           violenceSeekConatiner.appendChild(violenceSeek)
+          const tooltip = document.createElement('span');
+          tooltip.className = 'tooltip'
+          let violencePer = (Number(result.violenceestimation)*100).toFixed(2)
+          tooltip.textContent = `💀 ${violencePer}%\n${result.segment}`
+          violenceSeek.appendChild(tooltip)
+          violenceSeek.addEventListener('mouseover', function() {
+            tooltip.style.display = 'block';
+          });
+          
+          violenceSeek.addEventListener('mouseout', function() {
+            tooltip.style.display = 'none';
+          });
         })
         .catch((error) => console.log("error", error));
     }
